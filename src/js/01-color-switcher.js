@@ -16,16 +16,29 @@
 //   return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
 // }
 
-const btnStart = document.querySelector('data-start');
-const btnStop = document.querySelector('data-stop');
+const btnStart = document.querySelector('[data-start]');
+const btnStop = document.querySelector('[data-stop]');
 
-let idInterval = null;
+let IdInterval = null;
 
 function getRandomHexColor() {
-    return `#${Math.floor(Math.random() * 16777215)
-        .toString(16)
-        .padStart(6, 0)}`;
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, 0)}`;
 }
+
+function startRandomColor() {
+    btnStart.disabled = true; // вимикаємо кнопку "Старт"
+    IdInterval = setInterval(() => {
+        document.body.style.backgroundColor = getRandomHexColor();
+    }, 1000);
+}
+
+function stopRandomColor() {
+    btnStart.disabled = false; // вимикаємо кнопку "Стоп"
+  clearInterval(IdInterval);
+}
+
+btnStart.addEventListener('click', startRandomColor);
+btnStop.addEventListener('click', stopRandomColor);
 
 
 
